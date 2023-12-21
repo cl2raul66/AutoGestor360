@@ -2,5 +2,5 @@
 
 public enum TypeFuel
 {
-    Diesel, Gasolina
+    Diesel, Gas
 }

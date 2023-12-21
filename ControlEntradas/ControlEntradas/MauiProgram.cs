@@ -18,12 +18,14 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("icofont.ttf", "icofont");
             });
         builder.Services.AddSingleton<IDateService, DateService>();
+        builder.Services.AddSingleton<IWorkService, WorkService>();
 
-        builder.Services.AddSingleton<PgInicioViewModel>();
+        builder.Services.AddSingleton<PgHomeViewModel>();
 
-        builder.Services.AddSingleton<PgInicio>();
+        builder.Services.AddSingleton<PgHome>();
 
 #if DEBUG
         builder.Logging.AddDebug();

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AutoGestor360App.Views.PgIngreso"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:AutoGestor360App.ViewModels"
+    Title="Ingreso"
+    x:DataType="vm:PgIngresoViewModel"
+    Shell.PresentationMode="ModalAnimated">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16,0,16,16" Spacing="16">
+            <Label FontSize="Subtitle" Text="Cliente" />
+            <FlexLayout
+                AlignContent="Start"
+                AlignItems="Start"
+                Direction="Row">
+                <Grid
+                    Margin="0,4,4,4"
+                    RowDefinitions="auto,auto"
+                    RowSpacing="8">
+                    <Label FontSize="Body" Text="Nombre del cliente: *" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Plain"
+                        Placeholder="Escriba su nombre completo aquí"
+                        Text="{Binding Fullname}" />
+                </Grid>
+                <Grid
+                    Margin="0,4,4,4"
+                    RowDefinitions="auto,auto"
+                    RowSpacing="8">
+                    <Label FontSize="Body" Text="Teléfono del contacto: *" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Telephone"
+                        Placeholder="Escriba su numero de teléfono aquí"
+                        Text="{Binding Telephone}" />
+                </Grid>
+            </FlexLayout>
+            <Label FontSize="Subtitle" Text="Vehículo" />
+            <FlexLayout
+                AlignContent="Start"
+                AlignItems="Start"
+                Direction="Row">
+                <Grid
+                    Margin="0,4,4,4"
+                    RowDefinitions="auto,auto"
+                    RowSpacing="8">
+                    <Label FontSize="Body" Text="Placa:" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Plain"
+                        Placeholder="Escriba el numero de placa aquí"
+                        Text="{Binding Placa}" />
+                </Grid>
+                <Grid
+                    Margin="0,4,4,4"
+                    RowDefinitions="auto,auto"
+                    RowSpacing="8">
+                    <Label FontSize="Body" Text="Marca: *" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Plain"
+                        Placeholder="Escriba aquí"
+                        Text="{Binding Marca}" />
+                </Grid>
+                <Grid
+                    Margin="0,4,4,4"
+                    RowDefinitions="auto,auto"
+                    RowSpacing="8">
+                    <Label FontSize="Body" Text="Modelo:" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Plain"
+                        Placeholder="Escriba aquí"
+                        Text="{Binding Modelo}" />
+                </Grid>
+                <Grid
+                    Margin="0,4,4,4"
+                    RowDefinitions="auto,auto"
+                    RowSpacing="8">
+                    <Label FontSize="Body" Text="Año de fabricación:" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Numeric"
+                        Placeholder="Escriba aquí"
+                        Text="{Binding Afabricacion}" />
+                </Grid>
+                <Grid
+                    Margin="0,4,4,4"
+                    RowDefinitions="auto,auto"
+                    RowSpacing="8">
+                    <Label FontSize="Body" Text="Colores del chasis: *" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Plain"
+                        Placeholder="Escriba aquí"
+                        Text="{Binding Colors}" />
+                </Grid>
+                <Grid
+                    Margin="0,4,4,4"
+                    RowDefinitions="auto,auto"
+                    RowSpacing="8">
+                    <Label FontSize="Body" Text="Tipo de combustible: *" />
+                    <Picker
+                        Grid.Row="1"
+                        ItemsSource="{Binding Combustibles}"
+                        SelectedItem="{Binding SelectedCombustible}" />
+                </Grid>
+            </FlexLayout>
+            <Label FontSize="Subtitle" Text="Servicios *" />
+            <FlexLayout
+                AlignContent="Start"
+                AlignItems="Start"
+                Direction="Row">
+                <Grid
+                    Margin="0,4,4,4"
+                    ColumnDefinitions="auto,auto"
+                    RowSpacing="0">
+                    <CheckBox Margin="0" IsChecked="{Binding WPintura, Mode=OneWayToSource}" />
+                    <Label
+                        Grid.Column="1"
+                        FontSize="Caption"
+                        Text="Pintura"
+                        VerticalOptions="Center" />
+                </Grid>
+                <Grid
+                    Margin="0,4,4,4"
+                    ColumnDefinitions="auto,auto"
+                    RowSpacing="0">
+                    <CheckBox Margin="0" IsChecked="{Binding WAireAcondicionado, Mode=OneWayToSource}" />
+                    <Label
+                        Grid.Column="1"
+                        FontSize="Caption"
+                        Text="Aire acondicionado"
+                        VerticalOptions="Center" />
+                </Grid>
+                <Grid
+                    Margin="0,4,4,4"
+                    ColumnDefinitions="auto,auto"
+                    RowSpacing="0">
+                    <CheckBox Margin="0" IsChecked="{Binding WMecanicaGeneral, Mode=OneWayToSource}" />
+                    <Label
+                        Grid.Column="1"
+                        FontSize="Caption"
+                        Text="Mecánica general"
+                        VerticalOptions="Center" />
+                </Grid>
+                <Grid
+                    Margin="0,4,4,4"
+                    ColumnDefinitions="auto,auto"
+                    RowSpacing="0">
+                    <CheckBox Margin="0" IsChecked="{Binding WEnderezado, Mode=OneWayToSource}" />
+                    <Label
+                        Grid.Column="1"
+                        FontSize="Caption"
+                        Text="Enderezado"
+                        VerticalOptions="Center" />
+                </Grid>
+            </FlexLayout>
+            <Grid ColumnDefinitions="*, auto" ColumnSpacing="8">
+                <HorizontalStackLayout IsVisible="{Binding VisibleInfo, Mode=OneWay}" Spacing="8">
+                    <Label
+                        FontFamily="icofont"
+                        FontSize="Body"
+                        Text="{StaticResource InfoCircle}"
+                        TextColor="Red"
+                        VerticalOptions="Center" />
+                    <Label
+                        FontSize="Body"
+                        Text="LLene los datos requeridos (*)"
+                        TextColor="Red"
+                        VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="1" Spacing="8">
+                    <Button Command="{Binding GoToBackCommand}" Text="Cancelar" />
+                    <Button Command="{Binding AddInscriptionCommand}" Text="Agregar inscripción" />
+                </HorizontalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

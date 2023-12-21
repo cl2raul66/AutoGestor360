@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AutoGestor360App.Views.PgHome"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:AutoGestor360App.ViewModels"
+    Title="Inicio"
+    x:DataType="vm:PgHomeViewModel">
+
+    <Grid
+        Padding="16"
+        RowDefinitions="*,auto"
+        RowSpacing="16">
+        <VerticalStackLayout Spacing="16">
+            <Frame Padding="8">
+                <Grid ColumnDefinitions="*,auto" ColumnSpacing="8">
+                    <Label
+                        FontSize="Subtitle"
+                        Text="Inicio"
+                        TextColor="{StaticResource Primary}"
+                        VerticalOptions="Center" />
+                    <HorizontalStackLayout Grid.Column="1" Spacing="4">
+                        <Button
+                            Command="{Binding GoToAjustesCommand}"
+                            FontFamily="icofont"
+                            Text="{StaticResource UiSettings}" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Frame>
+            <Frame
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="300">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Ingreso de vehículos" />
+                    <Button
+                        Command="{Binding GoToIgresoCommand}"
+                        HorizontalOptions="End"
+                        Text="Ir" />
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+        <Frame Grid.Row="1" Padding="8">
+            <HorizontalStackLayout Spacing="8">
+                <HorizontalStackLayout Spacing="8">
+                    <Label
+                        FontFamily="icofont"
+                        FontSize="Body"
+                        Text="{StaticResource Network}"
+                        TextColor="Red"
+                        VerticalOptions="Center" />
+                    <Label
+                        FontSize="Body"
+                        Text="{Binding StatusApi, Mode=OneWay}"
+                        TextColor="Red"
+                        VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </HorizontalStackLayout>
+        </Frame>
+    </Grid>
+
+</ContentPage>

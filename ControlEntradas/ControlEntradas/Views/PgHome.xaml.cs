@@ -2,9 +2,9 @@ using ControlEntradas.ViewModels;
 
 namespace ControlEntradas.Views;
 
-public partial class PgInicio : ContentPage
+public partial class PgHome : ContentPage
 {
-	public PgInicio(PgInicioViewModel vm)
+	public PgHome(PgHomeViewModel vm)
 	{
 		InitializeComponent();
 
