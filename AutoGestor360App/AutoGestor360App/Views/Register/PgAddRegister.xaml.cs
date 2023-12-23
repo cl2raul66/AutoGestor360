@@ -2,9 +2,9 @@ using AutoGestor360App.ViewModels;
 
 namespace AutoGestor360App.Views;
 
-public partial class PgIngreso : ContentPage
+public partial class PgAddRegister : ContentPage
 {
-	public PgIngreso(PgIngresoViewModel vm)
+	public PgAddRegister(PgAddRegisterViewModel vm)
 	{
 		InitializeComponent();
 

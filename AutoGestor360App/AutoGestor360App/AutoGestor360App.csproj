@@ -65,16 +65,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\PgIngreso.xaml.cs">
-	    <DependentUpon>PgIngreso.xaml</DependentUpon>
+	  <Compile Update="Views\Register\PgAddRegister.xaml.cs">
+	    <DependentUpon>PgAddRegister.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\PgAjustes.xaml">
+	  <MauiXaml Update="Views\Review\PgAddReview.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PgIngreso.xaml">
+	  <MauiXaml Update="Views\Review\PgReview.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Register\PgRegister.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Register\PgAddRegister.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PgAjustes.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

@@ -7,12 +7,14 @@ using AutoGestor360App.Services;
 
 namespace AutoGestor360App.ViewModels;
 
-public partial class PgIngresoViewModel : ObservableValidator
+public partial class PgAddRegisterViewModel : ObservableValidator
 {
+    readonly IDateService dateServ;
     readonly IRegisterService registerServ;
 
-    public PgIngresoViewModel(IRegisterService registerService)
+    public PgAddRegisterViewModel(IDateService dateService, IRegisterService registerService)
     {
+        dateServ = dateService;
         registerServ = registerService;
     }
 
@@ -100,12 +102,16 @@ public partial class PgIngresoViewModel : ObservableValidator
         else
         {
             Models.Contact client = new(Fullname!, Telephone!);
-            Car vehicle = new(Placa!, Marca ?? string.Empty, Modelo ?? string.Empty, int.Parse(Afabricacion ?? "0"), Colors!.Split(";"), SelectedCombustible, [.. selectedWorks]);
-            Register newRegister = new($"", client, vehicle);
+            Car vehicle = new(Placa ?? string.Empty, Marca ?? string.Empty, Modelo ?? string.Empty, int.Parse(Afabricacion ?? "0"), Colors!.Split(";"), SelectedCombustible, [.. selectedWorks]);
+            int indx = await registerServ.GetIndex();
+            Register newRegister = new($"{dateServ.DateToCode(DateTime.Now)}-{indx}", client, vehicle, []);
 
-            await registerServ.RegisterAsync(newRegister);
+            var resul = await registerServ.UpsertRegister(newRegister);
 
-            await GoToBack();
+            if (resul)
+            {
+                await GoToBack();
+            }
         }
     }
 }

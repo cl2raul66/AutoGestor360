@@ -27,18 +27,38 @@
                     </HorizontalStackLayout>
                 </Grid>
             </Frame>
-            <Frame
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                WidthRequest="300">
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="Ingreso de vehículos" />
-                    <Button
-                        Command="{Binding GoToIgresoCommand}"
-                        HorizontalOptions="End"
-                        Text="Ir" />
-                </VerticalStackLayout>
-            </Frame>
+            <FlexLayout HorizontalOptions="Center">
+                <Frame Margin="4,0" WidthRequest="300">
+                    <VerticalStackLayout Spacing="8">
+                        <Label
+                            FontSize="Subtitle"
+                            Text="Ingreso de vehículos"
+                            TextColor="{StaticResource Primary}" />
+                        <HorizontalStackLayout HorizontalOptions="End" Spacing="4">
+                            <Button Command="{Binding GoToAddregisterCommand}" Text="Agregar" />
+                            <Button
+                                Command="{Binding GoToRegisterCommand}"
+                                HorizontalOptions="End"
+                                Text="Detalles" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Margin="4,0" WidthRequest="300">
+                    <VerticalStackLayout Spacing="8">
+                        <Label
+                            FontSize="Subtitle"
+                            Text="Revisión de vehículos"
+                            TextColor="{StaticResource Primary}" />
+                        <HorizontalStackLayout HorizontalOptions="End" Spacing="4">
+                            <Button Command="{Binding GoToAddreviewCommand}" Text="Agregar" />
+                            <Button
+                                Command="{Binding GotoReviewCommand}"
+                                HorizontalOptions="End"
+                                Text="Detalles" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+            </FlexLayout>
         </VerticalStackLayout>
         <Frame Grid.Row="1" Padding="8">
             <HorizontalStackLayout Spacing="8">

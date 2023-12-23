@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AutoGestor360App.Views.PgRegister"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:AutoGestor360App.ViewModels"
+    Title="Ingreso"
+    Shell.PresentationMode="Animated">
+
+    <Grid
+        Padding="16"
+        RowDefinitions="*,auto"
+        RowSpacing="16">
+        <VerticalStackLayout Spacing="16">
+            <Frame Padding="8">
+                <Grid ColumnDefinitions="*,auto" ColumnSpacing="8">
+                    <Label
+                        FontSize="Subtitle"
+                        Text="Ingreso"
+                        TextColor="{StaticResource Primary}"
+                        VerticalOptions="Center" />
+                    <HorizontalStackLayout Grid.Column="1" Spacing="4">
+                        <Button FontFamily="icofont" Text="{StaticResource UiSettings}" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>

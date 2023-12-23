@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AutoGestor360App.Views;
-using Windows.Media.Protection.PlayReady;
 
 namespace AutoGestor360App.ViewModels;
 
@@ -13,7 +12,14 @@ public partial class PgHomeViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    async Task GoToIgreso() => await Shell.Current.GoToAsync(nameof(PgIngreso), true);
+    async Task GoToAddregister() => await Shell.Current.GoToAsync($"{nameof(PgRegister)}/{nameof(PgAddRegister)}", true);
+    [RelayCommand]
+    async Task GoToRegister() => await Shell.Current.GoToAsync(nameof(PgRegister), true);
+
+    [RelayCommand]
+    async Task GoToAddreview() => await Shell.Current.GoToAsync($"{nameof(PgReview)}/{nameof(PgAddReview)}", true);
+    [RelayCommand]
+    async Task GotoReview() => await Shell.Current.GoToAsync(nameof(PgReview), true);
 
     [RelayCommand]
     async Task GoToAjustes() => await Shell.Current.GoToAsync(nameof(PgAjustes), true);
@@ -25,12 +31,13 @@ public partial class PgHomeViewModel : ObservableRecipient
     [RelayCommand]
     async Task GetStatusapi()
     {
+        StatusApi = "Desconectado";
         HttpClient clientApi = new();
-        HttpResponseMessage response = await clientApi.GetAsync("http://localhost:5000/register/");
-
-        StatusApi = response.IsSuccessStatusCode
-            ? "Conectado"
-            : "Desconectado";
+        var response = await clientApi.GetAsync("http://localhost:5000/register/");
+        if (response is not null && response.IsSuccessStatusCode)
+        {
+            StatusApi = "Conectado";
+        }
     }
     #endregion
 }
