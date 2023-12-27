@@ -22,6 +22,7 @@ public static class MauiProgram
             });
         builder.Services.AddSingleton<IDateService, DateService>();
         builder.Services.AddSingleton<IRegisterService, RegisterService>();
+        builder.Services.AddSingleton<ITasksService, TasksService>();
 
         builder.Services.AddSingleton<PgHomeViewModel>();
         builder.Services.AddSingleton<PgAddRegisterViewModel>();

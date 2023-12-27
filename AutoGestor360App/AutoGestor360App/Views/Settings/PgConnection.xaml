@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="AutoGestor360App.Views.PgRegister"
+    x:Class="AutoGestor360App.Views.PgConnection"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:AutoGestor360App.Models"
     xmlns:vm="clr-namespace:AutoGestor360App.ViewModels"
-    Title="Ingresos"
+    Title="Conexión"
     x:DataType="vm:PgRegisterViewModel"
     Shell.PresentationMode="Animated">
-    <Shell.BackButtonBehavior>
+    <!--<Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" />
-    </Shell.BackButtonBehavior>
+    </Shell.BackButtonBehavior>-->
 
     <Grid
         Padding="16"
@@ -26,7 +26,7 @@
                             Text="{StaticResource ArrowLeft}" />
                         <Label
                             FontSize="Subtitle"
-                            Text="Ingresos"
+                            Text="Conexión"
                             TextColor="{StaticResource Primary}"
                             VerticalOptions="Center" />
                     </HorizontalStackLayout>

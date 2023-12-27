@@ -17,7 +17,7 @@ public partial class PgHomeViewModel : ObservableRecipient
     async Task GotoReview() => await Shell.Current.GoToAsync(nameof(PgReview), true);
 
     [RelayCommand]
-    async Task GoToAjustes() => await Shell.Current.GoToAsync(nameof(PgAjustes), true);
+    async Task GoToAjustes() => await Shell.Current.GoToAsync(nameof(PgSettings), true);
 
     [ObservableProperty]
     bool statusApi;

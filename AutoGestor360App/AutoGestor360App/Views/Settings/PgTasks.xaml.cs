@@ -1,8 +1,8 @@
 namespace AutoGestor360App.Views;
 
-public partial class PgAjustes : ContentPage
+public partial class PgTasks : ContentPage
 {
-	public PgAjustes()
+	public PgTasks()
 	{
 		InitializeComponent();
 	}
