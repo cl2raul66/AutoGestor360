@@ -3,6 +3,7 @@
     x:Class="AutoGestor360App.Views.PgHome"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ctk="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:vm="clr-namespace:AutoGestor360App.ViewModels"
     Title="Inicio"
     x:DataType="vm:PgHomeViewModel">
@@ -61,21 +62,51 @@
             </FlexLayout>
         </VerticalStackLayout>
         <Frame Grid.Row="1" Padding="8">
-            <HorizontalStackLayout Spacing="8">
+            <Grid ColumnDefinitions="*, auto" ColumnSpacing="8">
                 <HorizontalStackLayout Spacing="8">
+                    <Grid
+                        ColumnDefinitions="auto, auto"
+                        ColumnSpacing="4"
+                        ToolTipProperties.Text="Click aqui para reconectarse a la API">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GetStatusapiCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Label
+                            FontFamily="icofont"
+                            FontSize="Body"
+                            Style="{StaticResource LabelConectionState}"
+                            Text="{StaticResource Network}"
+                            TextColor="{Binding StatusApi, Mode=OneWay, Converter={StaticResource StatusApiColor}}"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Column="1"
+                            FontSize="Body"
+                            Style="{StaticResource LabelConectionState}"
+                            Text="{Binding StatusApi, Mode=OneWay, Converter={StaticResource StatusApiText}}"
+                            TextColor="{Binding StatusApi, Mode=OneWay, Converter={StaticResource StatusApiColor}}"
+                            VerticalOptions="Center" />
+                    </Grid>
                     <Label
-                        FontFamily="icofont"
                         FontSize="Body"
-                        Text="{StaticResource Network}"
-                        TextColor="Red"
-                        VerticalOptions="Center" />
+                        Text="|"
+                        TextColor="{StaticResource Primary}" />
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Column="1" Spacing="8">
                     <Label
                         FontSize="Body"
-                        Text="{Binding StatusApi, Mode=OneWay}"
-                        TextColor="Red"
+                        HorizontalOptions="End"
+                        Text="|"
+                        TextColor="{StaticResource Primary}" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Caption"
+                        HorizontalOptions="End"
+                        Text="by RandA Media Lab, Group"
+                        TextColor="{StaticResource Primary}"
                         VerticalOptions="Center" />
                 </HorizontalStackLayout>
-            </HorizontalStackLayout>
+            </Grid>
         </Frame>
     </Grid>
 

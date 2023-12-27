@@ -1,6 +1,6 @@
-﻿namespace AutoGestor360App.Tools.Enums;
+﻿namespace AutoGestor360App.Tools;
 
 public enum TypeFuel
 {
-    Diesel, Gas
+    Diesel = 0, Gas = 1
 }

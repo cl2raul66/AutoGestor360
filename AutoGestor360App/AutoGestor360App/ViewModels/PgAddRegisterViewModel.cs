@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using AutoGestor360App.Models;
-using AutoGestor360App.Tools.Enums;
+using AutoGestor360App.Tools;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel.DataAnnotations;
 using AutoGestor360App.Services;
@@ -43,7 +43,7 @@ public partial class PgAddRegisterViewModel : ObservableValidator
     [Required]
     string? colors;
 
-    public IEnumerable<Tools.Enums.TypeFuel> Combustibles => Enum.GetValues(typeof(TypeFuel)).Cast<TypeFuel>();
+    public IEnumerable<TypeFuel> Combustibles => Enum.GetValues(typeof(TypeFuel)).Cast<TypeFuel>();
 
     [ObservableProperty]
     [Required]
@@ -93,7 +93,7 @@ public partial class PgAddRegisterViewModel : ObservableValidator
         {
             selectedWorks.Add(new("Mecánica general", string.Empty));
         }
-        if (HasErrors || !selectedWorks.Any())
+        if (HasErrors || selectedWorks.Count == 0)
         {
             VisibleInfo = true;
             await Task.Delay(5000);
@@ -102,9 +102,9 @@ public partial class PgAddRegisterViewModel : ObservableValidator
         else
         {
             Models.Contact client = new(Fullname!, Telephone!);
-            Car vehicle = new(Placa ?? string.Empty, Marca ?? string.Empty, Modelo ?? string.Empty, int.Parse(Afabricacion ?? "0"), Colors!.Split(";"), SelectedCombustible, [.. selectedWorks]);
-            int indx = await registerServ.GetIndex();
-            Register newRegister = new($"{dateServ.DateToCode(DateTime.Now)}-{indx}", client, vehicle, []);
+            Car vehicle = new(Placa ?? string.Empty, Marca ?? string.Empty, Modelo ?? string.Empty, int.Parse(Afabricacion ?? "0"), Colors!.Split(";"), SelectedCombustible);
+            int indx = await registerServ.GetNewIndex();
+            Register newRegister = new($"{dateServ.DateToCode(DateTime.Now)}-{indx}", client, vehicle, [.. selectedWorks]);
 
             var resul = await registerServ.UpsertRegister(newRegister);
 

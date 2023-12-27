@@ -6,11 +6,6 @@ namespace AutoGestor360App.ViewModels;
 
 public partial class PgHomeViewModel : ObservableRecipient
 {
-    public PgHomeViewModel()
-    {
-        _ = GetStatusapi();
-    }
-
     [RelayCommand]
     async Task GoToAddregister() => await Shell.Current.GoToAsync($"{nameof(PgRegister)}/{nameof(PgAddRegister)}", true);
     [RelayCommand]
@@ -25,18 +20,25 @@ public partial class PgHomeViewModel : ObservableRecipient
     async Task GoToAjustes() => await Shell.Current.GoToAsync(nameof(PgAjustes), true);
 
     [ObservableProperty]
-    string? statusApi;
+    bool statusApi;
 
     #region Extra
     [RelayCommand]
-    async Task GetStatusapi()
+    public async Task GetStatusapi()
     {
-        StatusApi = "Desconectado";
+        StatusApi = false;
         HttpClient clientApi = new();
-        var response = await clientApi.GetAsync("http://localhost:5000/register/");
-        if (response is not null && response.IsSuccessStatusCode)
+        try
         {
-            StatusApi = "Conectado";
+            var response = await clientApi.GetAsync("http://localhost:5000/Register/");
+            if (response is not null && response.IsSuccessStatusCode)
+            {
+                StatusApi = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ocurrió un error al intentar conectarse al servidor: {ex.Message}");
         }
     }
     #endregion

@@ -26,6 +26,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<PgHomeViewModel>();
         builder.Services.AddSingleton<PgAddRegisterViewModel>();
         builder.Services.AddSingleton<PgRegisterViewModel>();
+        builder.Services.AddSingleton<PgReviewViewModel>();
 
         builder.Services.AddSingleton<PgHome>();
         builder.Services.AddSingleton<PgAddRegister>();

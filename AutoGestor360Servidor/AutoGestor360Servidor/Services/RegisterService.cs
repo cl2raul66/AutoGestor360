@@ -5,8 +5,12 @@ namespace Servidor.Services;
 
 public interface IRegisterService
 {
-    IEnumerable<Register> GetRegisters();
-    bool UpsertRegister(Register entity);
+    bool Exist { get; }
+
+    bool Delete(string id);
+    IEnumerable<Register> GetAll();
+    Register GetById(string id);
+    bool Upsert(Register entity);
 }
 
 public class RegisterService : IRegisterService
@@ -29,12 +33,14 @@ public class RegisterService : IRegisterService
         collection = db.GetCollection<Register>();
     }
 
-    //public IEnumerable<Register> GetRegisters => collection.FindAll();
-    public IEnumerable<Register> GetRegisters()
-    {
-        var c = collection.FindAll(); 
-        return c;
-    }
+    public bool Exist => collection.Count() > 0;
 
-    public bool UpsertRegister(Register entity) => collection.Upsert(entity);
+    public IEnumerable<Register> GetAll() => collection.FindAll();
+
+    public Register GetById(string id) => collection.FindById(id);
+
+    public bool Upsert(Register entity) => collection.Upsert(entity);
+
+    public bool Delete(string id) => collection.Delete(id);
 }
+

@@ -10,4 +10,11 @@ public partial class PgRegister : ContentPage
 
 		BindingContext = vm;
 	}
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+		await (BindingContext as PgRegisterViewModel)!.GetRgistrations();
+    }
 }

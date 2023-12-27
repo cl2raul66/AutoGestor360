@@ -10,4 +10,10 @@ public partial class PgHome : ContentPage
 
 		BindingContext = vm;
 	}
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+		await (BindingContext as PgHomeViewModel)!.GetStatusapi();
+    }
 }

@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AutoGestor360App.Views.PgReview"
-             Title="PgReview">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+<ContentPage
+    x:Class="AutoGestor360App.Views.PgReview"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:AutoGestor360App.ViewModels"
+    Title="Revisiones"
+    x:DataType="vm:PgRegisterViewModel"
+    Shell.PresentationMode="Animated">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <Grid
+        Padding="16"
+        RowDefinitions="*,auto"
+        RowSpacing="16">
+        <VerticalStackLayout Spacing="16">
+            <Frame Padding="8">
+                <Grid ColumnDefinitions="*,auto" ColumnSpacing="8">
+                    <HorizontalStackLayout Spacing="4">
+                        <Button
+                            Command="{Binding GoBackCommand}"
+                            FontFamily="icofont"
+                            Text="{StaticResource ArrowLeft}" />
+                        <Label
+                            FontSize="Subtitle"
+                            Text="Revisiones"
+                            TextColor="{StaticResource Primary}"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Column="1" Spacing="4">
+                        <Button FontFamily="icofont" Text="{StaticResource UiSettings}" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+    </Grid>
+
 </ContentPage>
