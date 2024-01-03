@@ -20,6 +20,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("icofont.ttf", "icofont");
             });
+        builder.Services.AddSingleton<IApiClientService, ApiClientService>();
         builder.Services.AddSingleton<IDateService, DateService>();
         builder.Services.AddSingleton<IRegisterService, RegisterService>();
         builder.Services.AddSingleton<ITasksService, TasksService>();
@@ -28,12 +29,15 @@ public static class MauiProgram
         builder.Services.AddSingleton<PgAddRegisterViewModel>();
         builder.Services.AddSingleton<PgRegisterViewModel>();
         builder.Services.AddSingleton<PgReviewViewModel>();
+        builder.Services.AddSingleton<PgConnectionViewModel>();
 
         builder.Services.AddSingleton<PgHome>();
         builder.Services.AddSingleton<PgAddRegister>();
         builder.Services.AddSingleton<PgRegister>();
         builder.Services.AddSingleton<PgAddReview>();
         builder.Services.AddSingleton<PgReview>();
+        builder.Services.AddSingleton<PgConnection>();
+        builder.Services.AddSingleton<PgTasks>();
 
 #if DEBUG
         builder.Logging.AddDebug();

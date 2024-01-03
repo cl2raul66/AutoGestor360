@@ -16,21 +16,24 @@ public interface IRegisterService
 
 public class RegisterService : IRegisterService
 {
-    private readonly HttpClient _httpClient;
-    private readonly string _baseApiUrl = "http://localhost:5000";
-    private readonly JsonSerializerOptions jsonOptions = new()
+    readonly IApiClientService apiClientServ;
+    readonly HttpClient _httpClient;
+    readonly string serverUrl;
+    readonly JsonSerializerOptions jsonOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    public RegisterService()
+    public RegisterService(IApiClientService apiClientService)
     {
-        _httpClient = new HttpClient();
+        apiClientServ = apiClientService;
+        _httpClient = apiClientServ.Current();
+        serverUrl = apiClientServ.GetServerUrl;
     }
 
     public async Task<bool> RegisterExistsAsync()
     {
-        var response = await _httpClient.GetAsync($"{_baseApiUrl}/Register/exist");
+        var response = await _httpClient.GetAsync($"{serverUrl}/Register/exist");
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
         return bool.Parse(content);
@@ -38,7 +41,7 @@ public class RegisterService : IRegisterService
 
     public async Task<IEnumerable<Register>> GetRegisters()
     {
-        var response = await _httpClient.GetAsync($"{_baseApiUrl}/{nameof(Register)}");
+        var response = await _httpClient.GetAsync($"{serverUrl}/{nameof(Register)}");
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
         var registers = JsonSerializer.Deserialize<IEnumerable<Register>>(content, jsonOptions);
@@ -47,7 +50,7 @@ public class RegisterService : IRegisterService
 
     public async Task<Register?> GetRegister(string id)
     {
-        var response = await _httpClient.GetAsync($"{_baseApiUrl}/{nameof(Register)}/{id}");
+        var response = await _httpClient.GetAsync($"{serverUrl}/{nameof(Register)}/{id}");
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<Register>(content, jsonOptions);
@@ -57,19 +60,19 @@ public class RegisterService : IRegisterService
     {
         var registerJson = JsonSerializer.Serialize(register, jsonOptions);
         var content = new StringContent(registerJson, MediaTypeHeaderValue.Parse("application/json"));
-        var response = await _httpClient.PostAsync($"{_baseApiUrl}/{nameof(Register)}", content);
+        var response = await _httpClient.PostAsync($"{serverUrl}/{nameof(Register)}", content);
         return response.IsSuccessStatusCode;
     }
 
     public async Task<bool> DeleteRegister(string id)
     {
-        var response = await _httpClient.DeleteAsync($"{_baseApiUrl}/{nameof(Register)}/{id}");
+        var response = await _httpClient.DeleteAsync($"{serverUrl}/{nameof(Register)}/{id}");
         return response.IsSuccessStatusCode;
     }
 
     public async Task<int> GetNewIndex()
     {
-        var response = await _httpClient.GetAsync($"{_baseApiUrl}/Register/getnewindex");
+        var response = await _httpClient.GetAsync($"{serverUrl}/Register/getnewindex");
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
         return int.Parse(content);

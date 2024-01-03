@@ -6,80 +6,69 @@
     xmlns:model="clr-namespace:AutoGestor360App.Models"
     xmlns:vm="clr-namespace:AutoGestor360App.ViewModels"
     Title="Conexión"
-    x:DataType="vm:PgRegisterViewModel"
+    x:DataType="vm:PgConnectionViewModel"
     Shell.PresentationMode="Animated">
-    <!--<Shell.BackButtonBehavior>
+    <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" />
-    </Shell.BackButtonBehavior>-->
+    </Shell.BackButtonBehavior>
 
     <Grid
         Padding="16"
-        RowDefinitions="*,auto"
+        RowDefinitions="auto,*"
         RowSpacing="16">
-        <VerticalStackLayout Spacing="16">
-            <Frame Padding="8">
-                <Grid ColumnDefinitions="*,auto" ColumnSpacing="8">
-                    <HorizontalStackLayout Spacing="8">
-                        <Button
-                            Command="{Binding GoBackCommand}"
-                            FontFamily="icofont"
-                            Text="{StaticResource ArrowLeft}" />
-                        <Label
-                            FontSize="Subtitle"
-                            Text="Conexión"
-                            TextColor="{StaticResource Primary}"
-                            VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                    <HorizontalStackLayout Grid.Column="1" Spacing="4">
+        <Frame Padding="8">
+            <Grid ColumnDefinitions="*,auto" ColumnSpacing="8">
+                <HorizontalStackLayout Spacing="8">
+                    <Button
+                        Command="{Binding GoToBackCommand}"
+                        FontFamily="icofont"
+                        Text="{StaticResource ArrowLeft}" />
+                    <Label
+                        FontSize="Subtitle"
+                        Text="Conexión"
+                        TextColor="{StaticResource Primary}"
+                        VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <!--<HorizontalStackLayout Grid.Column="1" Spacing="4">
                         <Button FontFamily="icofont" Text="Revisión" />
-                    </HorizontalStackLayout>
-                </Grid>
-            </Frame>
-            <CollectionView
-                ItemsSource="{Binding Registrations, Mode=OneWay}"
-                SelectionMode="Single"
-                VerticalOptions="CenterAndExpand">
-                <CollectionView.EmptyView>
-                    <ContentView>
-                        <StackLayout
-                            HorizontalOptions="Center"
-                            Spacing="8"
-                            VerticalOptions="Center">
-                            <Image HeightRequest="56" WidthRequest="56">
-                                <Image.Source>
-                                    <FontImageSource
-                                        FontFamily="icofont"
-                                        Glyph="{StaticResource Notebook}"
-                                        Color="{StaticResource Gray400}" />
-                                </Image.Source>
-                            </Image>
+                    </HorizontalStackLayout>-->
+            </Grid>
+        </Frame>
+        <VerticalStackLayout
+            Grid.Row="1"
+            Spacing="16"
+            VerticalOptions="Center">
+            <Frame WidthRequest="450">
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        FontSize="Subtitle"
+                        Text="Servidor:"
+                        TextColor="{StaticResource Primary}" />
+                    <Entry
+                        ClearButtonVisibility="WhileEditing"
+                        Placeholder="http://localhost:5000"
+                        Text="{Binding UrlApi}" />
+                    <Grid ColumnDefinitions="*, auto" ColumnSpacing="8">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label
+                                FontFamily="icofont"
+                                FontSize="Body"
+                                Text="{StaticResource InfoCircle}"
+                                TextColor="{Binding StatusApi, Mode=OneWay, Converter={StaticResource StatusApiColor}}"
+                                VerticalOptions="Center" />
                             <Label
                                 FontSize="Body"
-                                Text="No hay registros"
-                                TextColor="{StaticResource Gray500}" />
-                        </StackLayout>
-                    </ContentView>
-                </CollectionView.EmptyView>
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="4" Orientation="Vertical" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Register">
-                        <Border Style="{StaticResource BorderItem}">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="8" />
-                            </Border.StrokeShape>
-                            <Grid RowDefinitions="auto,auto">
-                                <Label Text="{Binding Id, Mode=OneWay}" TextColor="{StaticResource PrimaryDarkText}" />
-                                <Label
-                                    Grid.Row="1"
-                                    Text="{Binding Vehicle, Mode=OneWay}"
-                                    TextColor="{StaticResource PrimaryDarkText}" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                                Text="{Binding StatusApi, Mode=OneWay, Converter={StaticResource StatusApiText}, TargetNullValue='Conectando...'}"
+                                TextColor="{Binding StatusApi, Mode=OneWay, Converter={StaticResource StatusApiColor}}"
+                                VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Grid.Column="1" Spacing="8">
+                            <Button Command="{Binding TestCommand}" Text="Probar" />
+                            <Button Command="{Binding SaveCommand}" Text="Agregar" IsEnabled="{Binding StatusApi, Mode=OneWay}"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
         </VerticalStackLayout>
     </Grid>
 

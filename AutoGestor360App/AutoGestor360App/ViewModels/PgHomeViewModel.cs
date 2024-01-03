@@ -1,11 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AutoGestor360App.Views;
+using AutoGestor360App.Services;
 
 namespace AutoGestor360App.ViewModels;
 
 public partial class PgHomeViewModel : ObservableRecipient
 {
+    readonly IApiClientService apiClientServ;
+
+    public PgHomeViewModel(IApiClientService apiClientService)
+    {
+        apiClientServ = apiClientService;
+    }
+
     [RelayCommand]
     async Task GoToAddregister() => await Shell.Current.GoToAsync($"{nameof(PgRegister)}/{nameof(PgAddRegister)}", true);
     [RelayCommand]
@@ -26,20 +34,7 @@ public partial class PgHomeViewModel : ObservableRecipient
     [RelayCommand]
     public async Task GetStatusapi()
     {
-        StatusApi = false;
-        HttpClient clientApi = new();
-        try
-        {
-            var response = await clientApi.GetAsync("http://localhost:5000/Register/");
-            if (response is not null && response.IsSuccessStatusCode)
-            {
-                StatusApi = true;
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Ocurrió un error al intentar conectarse al servidor: {ex.Message}");
-        }
+        StatusApi = await apiClientServ.Test();
     }
     #endregion
 }

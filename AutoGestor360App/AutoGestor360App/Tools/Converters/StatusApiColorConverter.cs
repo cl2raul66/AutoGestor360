@@ -12,7 +12,8 @@ public class StatusApiColorConverter : IValueConverter
             Color primaryColor = (Color)primary;
             return status ? primaryColor : Colors.Red;
         }
-        throw new InvalidOperationException("El valor debe ser un booleano");
+
+        return Colors.Gray;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

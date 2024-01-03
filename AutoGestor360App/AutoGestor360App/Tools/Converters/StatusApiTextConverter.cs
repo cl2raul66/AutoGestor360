@@ -10,7 +10,7 @@ public class StatusApiTextConverter : IValueConverter
         {
             return status ? "Conectado" : "Desconectado";
         }
-        throw new InvalidOperationException("El valor debe ser un booleano");
+        return null;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
