@@ -3,6 +3,7 @@
     x:Class="AutoGestor360App.Views.PgTasks"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ctk="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:model="clr-namespace:AutoGestor360App.Models"
     xmlns:vm="clr-namespace:AutoGestor360App.ViewModels"
     Title="Tareas"
@@ -35,58 +36,63 @@
                             Clicked="Button_Clicked"
                             FontFamily="icofont"
                             Text="{StaticResource UiAdd}" />
-                        <Button FontFamily="icofont" Text="{StaticResource UiDelete}" />
+                        <Button
+                            Command="{Binding RemoveWorkCommand}"
+                            FontFamily="icofont"
+                            IsEnabled="{Binding SelectedWork, Mode=OneWay, Converter={ctk:IsNotNullConverter}}"
+                            Text="{StaticResource UiDelete}" />
                     </HorizontalStackLayout>
                 </Grid>
             </Frame>
         </VerticalStackLayout>
-        <CollectionView
-            Grid.Row="1"
-            ItemsSource="{Binding Works, Mode=OneWay}"
-            SelectionMode="Single"
-            VerticalOptions="CenterAndExpand"
-            ZIndex="0">
-            <CollectionView.EmptyView>
-                <ContentView>
-                    <StackLayout
-                        HorizontalOptions="Center"
-                        Spacing="8"
-                        VerticalOptions="Center">
-                        <Image HeightRequest="56" WidthRequest="56">
-                            <Image.Source>
-                                <FontImageSource
-                                    FontFamily="icofont"
-                                    Glyph="{StaticResource Tasks}"
-                                    Color="{StaticResource Gray400}" />
-                            </Image.Source>
-                        </Image>
-                        <Label
-                            FontSize="Body"
-                            Text="No hay tareas"
-                            TextColor="{StaticResource Gray500}" />
-                    </StackLayout>
-                </ContentView>
-            </CollectionView.EmptyView>
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="4" Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Register">
-                    <Border Style="{StaticResource BorderItem}">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="8" />
-                        </Border.StrokeShape>
-                        <Grid RowDefinitions="auto,auto">
-                            <Label Text="{Binding Id, Mode=OneWay}" TextColor="{StaticResource PrimaryDarkText}" />
+        <ScrollView Grid.Row="1">
+            <CollectionView
+                ItemsSource="{Binding Works, Mode=OneWay}"
+                SelectedItem="{Binding SelectedWork}"
+                SelectionMode="Single"
+                ZIndex="0">
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <StackLayout
+                            HorizontalOptions="Center"
+                            Spacing="8"
+                            VerticalOptions="Center">
+                            <Image HeightRequest="56" WidthRequest="56">
+                                <Image.Source>
+                                    <FontImageSource
+                                        FontFamily="icofont"
+                                        Glyph="{StaticResource Tasks}"
+                                        Color="{StaticResource Gray400}" />
+                                </Image.Source>
+                            </Image>
                             <Label
-                                Grid.Row="1"
-                                Text="{Binding Vehicle, Mode=OneWay}"
-                                TextColor="{StaticResource PrimaryDarkText}" />
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                FontSize="Subtitle"
+                                Text="No hay tareas"
+                                TextColor="{StaticResource Gray500}" />
+                        </StackLayout>
+                    </ContentView>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="4" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Work">
+                        <Border Style="{StaticResource BorderItem}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8" />
+                            </Border.StrokeShape>
+                            <Grid RowDefinitions="auto,auto">
+                                <Label Text="{Binding Name, Mode=OneWay}" TextColor="{StaticResource PrimaryDarkText}" />
+                                <Label
+                                    Grid.Row="1"
+                                    Text="{Binding Description, Mode=OneWay}"
+                                    TextColor="{StaticResource PrimaryDarkText}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
         <Frame
             x:Name="FrameNuevo"
             Grid.Row="1"
@@ -100,6 +106,7 @@
                     Text="Nombre: (*)"
                     TextColor="{StaticResource Primary}" />
                 <Entry
+                    x:Name="EntryName"
                     ClearButtonVisibility="WhileEditing"
                     Placeholder="Escriba aquí"
                     Text="{Binding Name}" />
@@ -107,9 +114,28 @@
                     FontSize="Subtitle"
                     Text="Descripción:"
                     TextColor="{StaticResource Primary}" />
-                <Editor Placeholder="Escriba aquí" Text="{Binding Name}" />
-                <Grid Padding="8">
-                    <Button HorizontalOptions="End" Text="Agregar" />
+                <Editor
+                    x:Name="EditorDescription"
+                    Placeholder="Escriba aquí"
+                    Text="{Binding Description}" />
+                <Grid ColumnDefinitions="*, auto" ColumnSpacing="8">
+                    <HorizontalStackLayout IsVisible="{Binding EnableInfo, Mode=OneWay}" Spacing="8">
+                        <Label
+                            FontFamily="icofont"
+                            FontSize="Body"
+                            Text="{StaticResource InfoCircle}"
+                            TextColor="Red"
+                            VerticalOptions="Center" />
+                        <Label
+                            FontSize="Body"
+                            Text="Rellene los requeridos (*)."
+                            TextColor="Red"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    <Button
+                        Grid.Column="1"
+                        Command="{Binding AddWorkCommand}"
+                        Text="Agregar" />
                 </Grid>
             </VerticalStackLayout>
         </Frame>

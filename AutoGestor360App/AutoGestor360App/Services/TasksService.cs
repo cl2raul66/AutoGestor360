@@ -20,20 +20,20 @@ public class TasksService : ITasksService
 
     public bool Upsert(Work work)
     {
-        var worksJson = Preferences.Get(key, string.Empty);
-        var works = JsonSerializer.Deserialize<List<Work>>(worksJson, jsonOptions);
-        if (work is null || works is null)
+        if (work is null)
         {
             return false;
         }
-        if (works!.FirstOrDefault(x => x.Name == work.Name) is not null)
-        {
-            var copyWorks = works.Where(x => x.Name == work.Name).ToList();
-            works = copyWorks;
-        }
-        works!.Add(work);
+
+        var worksJson = Preferences.Get(key, string.Empty);
+        List<Work>? works = string.IsNullOrEmpty(worksJson) ? new() : JsonSerializer.Deserialize<List<Work>>(worksJson, jsonOptions);
+
+        works!.RemoveAll(x => x.Name == work.Name);
+        works.Add(work);
+
         var serializeWorks = JsonSerializer.Serialize(works, jsonOptions);
         Preferences.Set(key, serializeWorks);
+
         return true;
     }
 
@@ -50,13 +50,17 @@ public class TasksService : ITasksService
     public bool Delete(string name)
     {
         var worksJson = Preferences.Get(key, string.Empty);
-        var works = JsonSerializer.Deserialize<List<Work>>(worksJson, jsonOptions);
-        if (works?.FirstOrDefault(x => x.Name == name) is null)
+        if (string.IsNullOrEmpty(worksJson))
         {
             return false;
         }
-        var copyWorks = works.Where(x => x.Name == name).ToList();
-        works = copyWorks;
-        return true;
+        var works = JsonSerializer.Deserialize<List<Work>>(worksJson, jsonOptions);
+        if (works!.RemoveAll(x => x.Name == name) > 0)
+        {
+            var serializeWorks = JsonSerializer.Serialize(works, jsonOptions);
+            Preferences.Set(key, serializeWorks);
+            return true;
+        }
+        return false;
     }
 }

@@ -27,6 +27,7 @@ public partial class PgConnectionViewModel(IApiClientService apiClientService) :
     [RelayCommand]
     async Task Test()
     {
+        ValidateAllProperties();
         if (HasErrors || string.IsNullOrEmpty(UrlApi))
         {
             StatusApi = false;

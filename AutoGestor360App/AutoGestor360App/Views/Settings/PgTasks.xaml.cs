@@ -22,7 +22,6 @@ public partial class PgTasks : ContentPage
         FrameNuevo.IsVisible = visibleNuevo;
     }
 
-
     private void Button_Clicked(object sender, EventArgs e)
     {
         var b = sender as Button;
@@ -31,6 +30,8 @@ public partial class PgTasks : ContentPage
         {
             b!.BackgroundColor = primaryColor;
             visibleNuevo = false;
+            EntryName.Text = string.Empty;
+            EditorDescription.Text = string.Empty;
         }
         else
         {
