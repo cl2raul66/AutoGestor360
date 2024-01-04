@@ -30,6 +30,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<PgRegisterViewModel>();
         builder.Services.AddSingleton<PgReviewViewModel>();
         builder.Services.AddSingleton<PgConnectionViewModel>();
+        builder.Services.AddSingleton<PgTasksViewModel>();
 
         builder.Services.AddSingleton<PgHome>();
         builder.Services.AddSingleton<PgAddRegister>();

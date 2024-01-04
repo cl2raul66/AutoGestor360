@@ -6,22 +6,22 @@
     xmlns:model="clr-namespace:AutoGestor360App.Models"
     xmlns:vm="clr-namespace:AutoGestor360App.ViewModels"
     Title="Tareas"
-    x:DataType="vm:PgRegisterViewModel"
+    x:DataType="vm:PgTasksViewModel"
     Shell.PresentationMode="Animated">
-    <!--<Shell.BackButtonBehavior>
+    <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" />
-    </Shell.BackButtonBehavior>-->
+    </Shell.BackButtonBehavior>
 
     <Grid
         Padding="16"
-        RowDefinitions="*,auto"
+        RowDefinitions="auto,*"
         RowSpacing="16">
         <VerticalStackLayout Spacing="16">
             <Frame Padding="8">
                 <Grid ColumnDefinitions="*,auto" ColumnSpacing="8">
                     <HorizontalStackLayout Spacing="8">
                         <Button
-                            Command="{Binding GoBackCommand}"
+                            Command="{Binding GoToBackCommand}"
                             FontFamily="icofont"
                             Text="{StaticResource ArrowLeft}" />
                         <Label
@@ -31,56 +31,88 @@
                             VerticalOptions="Center" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Column="1" Spacing="4">
-                        <Button FontFamily="icofont" Text="Revisión" />
+                        <Button
+                            Clicked="Button_Clicked"
+                            FontFamily="icofont"
+                            Text="{StaticResource UiAdd}" />
+                        <Button FontFamily="icofont" Text="{StaticResource UiDelete}" />
                     </HorizontalStackLayout>
                 </Grid>
             </Frame>
-            <CollectionView
-                ItemsSource="{Binding Registrations, Mode=OneWay}"
-                SelectionMode="Single"
-                VerticalOptions="CenterAndExpand">
-                <CollectionView.EmptyView>
-                    <ContentView>
-                        <StackLayout
-                            HorizontalOptions="Center"
-                            Spacing="8"
-                            VerticalOptions="Center">
-                            <Image HeightRequest="56" WidthRequest="56">
-                                <Image.Source>
-                                    <FontImageSource
-                                        FontFamily="icofont"
-                                        Glyph="{StaticResource Notebook}"
-                                        Color="{StaticResource Gray400}" />
-                                </Image.Source>
-                            </Image>
-                            <Label
-                                FontSize="Body"
-                                Text="No hay registros"
-                                TextColor="{StaticResource Gray500}" />
-                        </StackLayout>
-                    </ContentView>
-                </CollectionView.EmptyView>
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="4" Orientation="Vertical" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Register">
-                        <Border Style="{StaticResource BorderItem}">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="8" />
-                            </Border.StrokeShape>
-                            <Grid RowDefinitions="auto,auto">
-                                <Label Text="{Binding Id, Mode=OneWay}" TextColor="{StaticResource PrimaryDarkText}" />
-                                <Label
-                                    Grid.Row="1"
-                                    Text="{Binding Vehicle, Mode=OneWay}"
-                                    TextColor="{StaticResource PrimaryDarkText}" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
         </VerticalStackLayout>
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Works, Mode=OneWay}"
+            SelectionMode="Single"
+            VerticalOptions="CenterAndExpand"
+            ZIndex="0">
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Spacing="8"
+                        VerticalOptions="Center">
+                        <Image HeightRequest="56" WidthRequest="56">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="icofont"
+                                    Glyph="{StaticResource Tasks}"
+                                    Color="{StaticResource Gray400}" />
+                            </Image.Source>
+                        </Image>
+                        <Label
+                            FontSize="Body"
+                            Text="No hay tareas"
+                            TextColor="{StaticResource Gray500}" />
+                    </StackLayout>
+                </ContentView>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="4" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Register">
+                    <Border Style="{StaticResource BorderItem}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Grid RowDefinitions="auto,auto">
+                            <Label Text="{Binding Id, Mode=OneWay}" TextColor="{StaticResource PrimaryDarkText}" />
+                            <Label
+                                Grid.Row="1"
+                                Text="{Binding Vehicle, Mode=OneWay}"
+                                TextColor="{StaticResource PrimaryDarkText}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Frame
+            x:Name="FrameNuevo"
+            Grid.Row="1"
+            Padding="16"
+            VerticalOptions="End"
+            WidthRequest="520"
+            ZIndex="1">
+            <VerticalStackLayout Spacing="8">
+                <Label
+                    FontSize="Subtitle"
+                    Text="Nombre: (*)"
+                    TextColor="{StaticResource Primary}" />
+                <Entry
+                    ClearButtonVisibility="WhileEditing"
+                    Placeholder="Escriba aquí"
+                    Text="{Binding Name}" />
+                <Label
+                    FontSize="Subtitle"
+                    Text="Descripción:"
+                    TextColor="{StaticResource Primary}" />
+                <Editor Placeholder="Escriba aquí" Text="{Binding Name}" />
+                <Grid Padding="8">
+                    <Button HorizontalOptions="End" Text="Agregar" />
+                </Grid>
+            </VerticalStackLayout>
+        </Frame>
     </Grid>
 
 </ContentPage>
